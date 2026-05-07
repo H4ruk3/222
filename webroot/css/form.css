@@ -1,0 +1,276 @@
+.form-control {
+    border-radius: 0;
+}
+
+/*input[type="text"], input[type="password"], input[type="email"], input[type="number"], select[multiple], select[size] {
+	    width: 100%;
+    height: 40px;
+    border: none;
+    border: 1px solid #c5c5c5;
+    padding: 0 10px;
+}*/
+.input-group:hover > input,
+.input-group:hover > span,
+input[type="text"]:hover,
+input[type="password"]:hover,
+input[type="date"]:hover,
+input[type="datetime"]:hover,
+input[type="datetime-local"]:hover,
+input[type="month"]:hover,
+input[type="week"]:hover,
+input[type="email"]:hover,
+input[type="number"]:hover,
+input[type="search"]:hover,
+input[type="tel"]:hover,
+input[type="time"]:hover,
+input[type="url"]:hover,
+textarea:hover,
+select:hover,
+select[multiple]:hover,
+select[size]:hover {
+    box-shadow: 0 0 5px #FFA726;
+    border-color: #FFA726;
+    transition: 1s;
+}
+
+.input-group:hover > span {
+    background-color: #FFA726;
+    color: #FFF;
+}
+
+.input-group > span {
+    /*transition: box-shadow 0.45s, border-color 0.45s ease-in-out;*/
+    transition: 1s;
+    margin: 0 0 1rem 0;
+}
+
+input[type="text"]:focus + span,
+input[type="number"]:focus + span {
+    background-color: #FFA726;
+    color: #FFF;
+}
+
+.input-group:active > span {
+    background-color: #FFA726;
+    color: #FFF;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea,
+select,
+select[multiple],
+select[size] {
+    /*-webkit-appearance: none;*/
+    background-color: white;
+    font-family: inherit;
+    /*border: 2px solid #ecf0f1;*/
+    border: 2px solid #c5c5c5a1;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0);
+    /*color: rgba(0, 0, 0, 0.75);*/
+    display: block;
+    /*font-size: 0.875rem;*/
+    margin: 0 0 1rem 0;
+    padding: 0.5rem;
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    transition: box-shadow 0.45s, border-color 1s ease-in-out;
+    padding-top: 8px!important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="time"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus,
+.form-controll:focus,
+select[multiple]:focus,
+select[size]:focus {
+    box-shadow: 0 0 5px #FFA726 !important;
+    border-color: #FFA726 !important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="time"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select[multiple]:focus,
+select[size]:focus {
+    background: #FCFCFC;
+    border-color: #FFA726;
+    outline: none;
+}
+
+input[type="text"][disabled],
+fieldset[disabled] input[type="text"],
+input[type="password"][disabled],
+fieldset[disabled] input[type="password"],
+input[type="date"][disabled],
+fieldset[disabled] input[type="date"],
+input[type="datetime"][disabled],
+fieldset[disabled] input[type="datetime"],
+input[type="datetime-local"][disabled],
+fieldset[disabled] input[type="datetime-local"],
+input[type="month"][disabled],
+fieldset[disabled] input[type="month"],
+input[type="week"][disabled],
+fieldset[disabled] input[type="week"],
+input[type="email"][disabled],
+fieldset[disabled] input[type="email"],
+input[type="number"][disabled],
+fieldset[disabled] input[type="number"],
+input[type="search"][disabled],
+fieldset[disabled] input[type="search"],
+input[type="tel"][disabled],
+fieldset[disabled] input[type="tel"],
+input[type="time"][disabled],
+fieldset[disabled] input[type="time"],
+input[type="url"][disabled],
+fieldset[disabled] input[type="url"],
+textarea[disabled],
+fieldset[disabled] textarea,
+select[multiple][disabled],
+select[size][disabled] {
+    background-color: #DDDDDD;
+    cursor: default;
+}
+
+#capcha {
+    width: 100%;
+}
+
+input[type="checkbox"] {
+    height: 20px;
+    /*margin: 0px;*/
+    width: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 4px 0;
+}
+
+input[type="button"],
+input[type="submit"] {
+    background: #FF9800;
+    border: none;
+    height: 40px;
+    width: 100%;
+    font-size: 18px;
+    font-family: "Arial";
+    color: rgb(245, 245, 245);
+    line-height: 1.2;
+    text-align: center;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="button"]:focus,
+input[type="email"]:focus,
+input[type="submit"]:focus,
+input[type="number"]:focus,
+select[multiple]:focus,
+select[size]:focus {
+    /*border: 1px solid #ffa726;
+    	outline-color: #ffa726;*/
+}
+
+.form-group {
+    position: relative;
+}
+
+
+/************************************************************
+Стиль всплывающей подсказки в поле ввода
+************************************************************/
+.form-label {
+    position: absolute;
+    pointer-events: none;
+    left: 15px;
+    top: 0;
+    line-height: 40px;
+    transition: 0.3s;
+    z-index: 99;
+    color: #9d9d9d;
+}
+
+.form-control:focus ~ .form-label,
+.form-control[value]:not(:focus):not([value=""]) ~ .form-label {
+    top: -10px;
+    font-size: 10px;
+}
+.form-label.active {
+    top: -10px;
+    font-size: 10px;
+}
+
+
+input.error, textarea.error {
+    border-color: #ff0000;
+    margin-bottom: 0;
+}
+.erroricon {
+    display: none;
+}
+input.error~.erroricon, input.error~span, textarea.error~span {
+    display: table-cell;
+    color: #ff0000;
+    border-color: #ff0000;
+}
+input.error~i.erroricon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 40px;
+    width: 40px;
+    border: none;
+    line-height: 40px;
+}
+input.error:focus~.erroricon, input.error:focus~span, textarea.error:focus~span {
+    color: #ff0000;
+}
+
+.input-group>.errormsg, .errormsg {
+    color: #ff0000!important;
+    cursor: initial!important;
+    border: none!important;
+    font-size: 11px;
+    display: table-row;
+    padding-bottom: 14px;
+}
+.errormsg:hover, .input-group:hover>.errormsg {
+    color: #ff0000!important;
+}

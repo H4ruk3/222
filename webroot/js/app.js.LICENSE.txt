@@ -1,0 +1,26 @@
+/*!
+ *  Vuedals plugin v1.8.0
+ * 
+ *  Multiple event based modal windows, with a single component
+ * 
+ *  This is a plugin to open any number of modal windows without having to attach them to the DOM
+ *  @author Javis Perez <javisperez@gmail.com>
+ *  https://github.com/javisperez/vuedals
+ *  Released under the MIT License.
+ */
+
+/*!
+ * Vue.js v2.6.14
+ * (c) 2014-2021 Evan You
+ * Released under the MIT License.
+ */
+
+/*!
+ * perfect-scrollbar v1.5.2
+ * Copyright 2021 Hyunje Jun, MDBootstrap and Contributors
+ * Licensed under MIT
+ */
+
+//! moment.js
+
+//! moment.js locale configuration

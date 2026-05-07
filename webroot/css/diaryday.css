@@ -1,0 +1,376 @@
+.date-time {
+	background-color: #589BE6;
+}
+.orange .date-time {
+	background-color: #EBC85E;
+}
+.green .date-time {
+	background-color: #51D466;
+}
+.pink .date-time {
+	background-color: #f48fb1;
+}
+.arrowleft, .arrowright {
+	background-color: #589BE6;
+}
+.orange .arrowleft, .orange .arrowright {
+	background-color: #EBC85E;
+}
+.pink .arrowleft, .pink .arrowright {
+	background-color: #f48fb1;
+}
+.green .arrowleft, .green .arrowright {
+	background-color: #51D466;
+}
+.arrowleft:hover, .arrowright:hover {
+	background-color: #4B77A8;
+}
+.green .arrowleft:hover, .green .arrowright:hover {
+	background-color: #1A8A2E;
+}
+.orange .arrowleft:hover, .orange .arrowright:hover {
+	background-color: #C7A338;
+}
+.pink .arrowleft:hover, .pink .arrowright:hover {
+	background-color: #f83677;
+}
+.orange .ok {
+    background-color: #EBC85E;
+}
+.green .ok {
+    background-color: #51D466;
+}
+.pink .ok {
+    background-color: #f48fb1;
+}
+.orange .ok:hover {
+    background-color: #C7A338;
+}
+.green .ok:hover {
+    background-color: #1A8A2E;
+}
+.pink .ok:hover {
+    background-color: #f83677;
+}
+.bigtitle h1 {
+	color: #589BE6;
+}
+.orange .bigtitle h1 {
+	color: #EBC85E;
+}
+.green .bigtitle h1 {
+	color: #51D466;
+}
+.pink .bigtitle h1 {
+	color: #f48fb1;
+}
+.backcalendar {
+	background-color: #589BE6;
+	border-right: 1px solid #4B77A8;
+}
+.diarymenu {
+	border-top: none;
+}
+/*.diarymenuitem:hover, .diarymenuitem.active {
+	background-color: #4B77A8;
+}
+.diarymenuitem {
+	background-color: #589BE6;
+}
+.bigtitle {
+	border-bottom: 1px solid #4B77A8;
+}*/
+.diarymenuitem {
+	position: relative;
+}
+.comments-title {
+	margin-left: -15px;
+    margin-right: -15px;
+    background: #589BE6;
+}
+.diarymenuitem:hover {
+    background-color: #589BE6;
+    cursor: pointer;
+    height: 39px;
+}
+.fa-angle-left:hover, .fa-angle-right:hover {
+	color: #4B77A8;
+}
+
+.orange .fa-angle-left:hover, .orange .fa-angle-right:hover {
+	color: #C7A338;
+}
+.green .fa-angle-left:hover, .green .fa-angle-right:hover {
+	color: #1A8A2E;
+}
+.green .addset {
+	color: #51D466;
+}
+.orange .addset {
+	color: #EBC85E;
+}
+.pink .addset {
+	color: #f48fb1;
+}
+.green .addset:hover {
+	color: #1A8A2E;
+}
+.orange .addset:hover {
+	color: #C7A338;
+}
+.pink .addset:hover {
+	color: #f83677;
+}
+
+.diarytable {
+    width: 100%;
+    overflow: auto;
+    position: relative;
+    /*display: block;*/
+}
+.diarytable.thead {
+    text-align: center;
+    font-weight: bold;
+}
+.diarytable td, .diarytable th {
+    padding: 5px 20px;
+    border: 1px solid #cfcfcf;
+    text-align: center;
+}
+.diarytable td:first-child, .diarytable th:first-child {
+    border-left: none;
+}
+.diarytable td:last-child, .diarytable th:last-child {
+    border-right: none;
+}
+.diarytable tr:last-child>td {
+    border-bottom: none;
+}
+.diarytable thead>tr>td, .diarytable thead>tr>th {
+    border-top: none;
+}
+.diarymenu {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: #ebc85e;
+    color: #fff;
+    margin-bottom: 20px;
+    border-top: 1px solid #C7A338;
+}
+.diarymenuitem {
+    height:40px;
+    text-align: center;
+    height:40px;
+    line-height: 40px;
+    color: #fff;
+    padding: 0;
+}
+.backcalendar {
+    flex: 0 0 150px;
+    border-right: 1px solid #C7A338;
+    height: 40px;
+}
+.diarymenuitem.train, .diarymenuitem.eating {
+    flex: 1 0 100px;
+    position: relative;
+}
+.diarymenuitem:hover {
+    background-color: #C7A338;
+    cursor: pointer;
+    height: 39px;
+}
+.diarymenuitem.active {
+    background-color: #C7A338;
+    height: 39px;
+}
+
+.arrowleft {
+    width: 30px;
+    background: url(//bootstraptema.ru/snippets/calendar/clndr/arrows.png) no-repeat -1px 0px;
+    background-position-y: center;
+    background-color: #ebc85e;
+}
+.arrowright {
+    width: 30px;
+    background: url(//bootstraptema.ru/snippets/calendar/clndr/arrows.png) no-repeat -30px 0px;;
+    background-position-y: center;
+    background-color: #ebc85e;
+}
+.arrowleft:hover, .arrowright:hover {
+    background-color: #C7A338;
+    cursor: pointer;
+}
+.eatingcontent .comments-title {
+    margin: 0;
+}
+.orange .comments-title {
+    margin: 0;
+    background: #EBC85E;
+}
+/*.row > * {
+    width: auto;
+}*/
+/*title*/
+.date-time {
+    background-color: #0b2948;
+    color: #fff;
+    width: 90px;
+    height: 90px;
+    text-align: center;
+    font-family: "Open Sans";
+    font-weight: lighter;
+    padding: 12px;
+}
+.date-time>.day {
+    font-size: 40px;
+    line-height: 1;
+}
+.date-time>.month {
+    font-size: 12px;
+}
+h1 {
+    padding-left:20px;
+}
+.date-time {
+    background-color: #EBC85E;
+    color: #FFF;
+    width: 90px;
+    height: 90px;
+    text-align: center;
+    font-weight: lighter;
+    padding: 12px;
+}
+.date-time > .day {
+    font-size: 40px;
+    line-height: 1;
+}
+.date-time> .day:hover {
+    background: inherit;
+    cursor: auto;
+}
+.date-time > .month {
+    font-size: 10px;
+}
+.bigtitle h1 {
+    /*padding-left: 20px;*/
+    margin: 0;
+    color: #EBC85E;
+}
+.bigtitle h1 .traininginfo {
+    font-size: 1rem;
+    color: #AAA;
+}
+.bigtitle p {
+    color: #AAA;
+}
+.bigtitle {
+    margin-top: 20px;
+    display: flex;
+    /*border-bottom: 1px solid #EBC85E;*/
+}
+.bigtitle .aime {
+    padding-left: 20px;
+    font-size: 12px;
+    margin: 0;
+}
+.caption {
+    cursor: pointer;
+}
+.caption > div.active {
+    position: absolute;
+    line-height: 50px;
+    z-index: 199;
+    left: -5px;
+    right: -5px;
+    top: -5px;
+    bottom: -5px;
+    width: auto;
+    box-shadow: 5px 4px 5px 0px rgba(0, 0, 0, 0.5);
+}
+/*Описание программы тренировок*/
+.dayheader, .wp-block {
+    padding: 0 20px;
+    border-bottom: 1px solid #CFCFCF;
+}
+.wp-block {
+    border: 1px solid #CFCFCF;
+    box-shadow: 3px 3px 3px 1px rgba(56, 56, 56, 0.1);
+    margin-bottom: 10px;
+    padding: 5px 20px;
+}
+.dayheader {
+    background: #EBC85E;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.dayheader > h4 {
+    margin: 0;
+    color: #FFF;
+}
+.whitesubtitle {
+    color: #FFF;
+    padding-left: 10px;
+    font-size: 12px;
+}
+.number {
+    padding-right: 10px;
+    color: #337AB7;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+}
+.togglebtn {
+    width: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #CFCFCF;
+    font-size: 42px;
+    cursor: pointer;
+    transition: 1s;
+}
+.togglebtn:hover {
+    color: #000;
+    transition: 1s;
+}
+.wp-block-content {
+    /*padding-right: 40px;*/
+    text-align: left;
+}
+.exercisebtn {
+    flex-grow:0;
+    width: auto;
+    cursor: pointer;
+}
+/*.wp-block-content > span {
+  color: #AAA;
+}*/
+.wp-block-body {
+    position: relative;
+}
+#app>div {
+    background: #fff;
+}
+.ok {
+    width: 90px;
+    background-color: #EBC85E;
+    padding: 20px;
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+}
+.ok:hover {
+    background-color: #C7A338;
+    cursor: pointer;
+}
