@@ -1,0 +1,13 @@
+.app {
+  background: grey;
+}
+.navbar-brand img {
+    height: 84%;
+    margin: 0 20px;
+}
+.navbar-brand {
+    height:50px
+}
+.mr-auto {
+    margin-right: auto!important;
+}
