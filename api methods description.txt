@@ -1,0 +1,916 @@
+﻿************************************************************************************************
+					Описание методов api.
+************************************************************************************************
+
+*************************************************************************************
+--------------------------------------------------
+Метод авторизации.
+контроллер: Auth
+метод: login
+адрес для обращения: api\auth\login
+отправляемые данные: {"username" : "имя пользователя", "password" : "пароль"}
+Статус ответа: 200
+ответ сервера: {"status":"success","apiKey":"ключ"}
+--------------------------------------------------
+
+curl -d "{\"username\" : \"test@test.ru\", \"password\" : \"test\"}" -i http://coachme:8080/api/auth/login
+
+HTTP/1.1 200 OK
+Date: Wed, 24 Jan 2018 12:47:26 GMT
+Server: Apache
+Content-Length: 72
+Content-Type: text/html
+
+{"status":"success","apiKey":"99508d99f35a144fabaafdddb17275c33bac5dbf"}
+
+-------------------------
+Неверный логин или пароль 
+Статус ответа: 203
+Ответ сервера: {"status":"error", "message":"Текст сообщения об ошибке"}
+-------------------------
+curl -d "{\"username\" : \"udjal@mail.ru\", \"password\" : \"192837465\"}" -i http://coachme:8080/api/auth/login
+HTTP/1.1 203 Non-Authoritative Information
+Date: Thu, 25 Jan 2018 11:24:38 GMT
+Server: Apache
+Content-Length: 218
+Content-Type: text/html; charset=UTF-8
+
+{"status":"error","mess":"\u041d\u0435\u0432\u0435\u0440\u043d\u043e\u0435 \u0438\u043c\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f \u0438\u043b\u0438 \u043b\u043e\u0433\u0438\u043d"}
+
+-------------------------
+Неверное количество параметров, неверные имена параметров, передан не json объект
+Статус ответа: 400
+Ответ сервера: {"status":"error","mess":"Неверные параметры запроса"}
+-------------------------
+curl -d "{\"user\" : \"udjal@mail.ru\", \"password\" : \"192837465\"}" -i http://coachme:8080/api/auth/login
+HTTP/1.1 400 Bad Request
+Date: Thu, 25 Jan 2018 11:53:57 GMT
+Server: Apache
+Content-Length: 174
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+{"status":"error","mess":"\u041d\u0435\u0432\u0435\u0440\u043d\u044b\u0435 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b \u0437\u0430\u043f\u0440\u043e\u0441\u0430"}
+*************************************************************************************
+
+
+
+
+
+*************************************************************************************
+--------------------------------------------------
+Метод регистрации нового пользователя.
+контроллер: Auth
+метод: registry
+адрес для обращения: api\auth\registry
+отправляемые данные: {"username" : "имя пользователя", "password" : "пароль", "accept" : подтверждение согласия с условиями}
+Статус ответа: 200
+ответ сервера: {"status":"success", "mess":"Пользователь успешно создан"}
+--------------------------------------------------
+curl -d "{\"username\" : \"udjal@mail.ru\", \"password\" : \"192837465\", \"accept\" : true}" -i http://coachme:8080/api/auth/registry
+HTTP/1.1 200 OK
+Date: Thu, 25 Jan 2018 12:52:19 GMT
+Server: Apache
+Content-Length: 183
+Content-Type: text/html; charset=UTF-8
+
+{"status":"success","mess":"\u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0441\u043e\u0437\u0434\u0430\u043d"}
+
+-------------------------
+Неверное количество параметров, неверные имена параметров, передан не json объект
+Статус ответа: 400
+Ответ сервера: {"status":"error","mess":"Неверные параметры запроса"}
+-------------------------
+curl -d "{\"username\" : \"udjal@mail.ru\", \"password\" : \"192837465\"}" -i http://coachme:8080/api/auth/registry
+HTTP/1.1 400 Bad Request
+Date: Thu, 25 Jan 2018 12:57:22 GMT
+Server: Apache
+Content-Length: 175
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+{"status":"error","mess":"1\u041d\u0435\u0432\u0435\u0440\u043d\u044b\u0435 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b \u0437\u0430\u043f\u0440\u043e\u0441\u0430"}
+
+-------------------------
+Не приняты условия соглашения (accept передано значение не true). 
+Статус ответа: 400
+Ответ сервера: {"status":"error","mess":"Не приняты условия соглашения"}
+-------------------------
+curl -d "{\"username\" : \"udjal@mail.ru\", \"password\" : \"192837465\", \"accept\" : false}" -i http://coachme:8080/api/auth/registry
+HTTP/1.1 400 Bad Request
+Date: Thu, 25 Jan 2018 12:59:23 GMT
+Server: Apache
+Content-Length: 188
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+{"status":"error","mess":"2\u041d\u0435 \u043f\u0440\u0438\u043d\u044f\u0442\u044b \u0443\u0441\u043b\u043e\u0432\u0438\u044f \u0441\u043e\u0433\u043b\u0430\u0448\u0435\u043d\u0438\u044f"}
+
+-------------------------
+Переданы неверные данные (не email, другие правила валидации, количество символов в поле и т.п.). Возвращаемые сообщения разные взависимости от типа ошибки. Генегрятся автоматически. Могут быть не переведены.
+Статус ответа: 400
+Ответ сервера: {"status":"error","mess":"E-mail must be valid"}
+-------------------------
+curl -d "{\"username\" : \"udjal\", \"password\" : \"192837465\", \"accept\" : 1}" -i http://coachme:8080/api/auth/registry
+HTTP/1.1 400 Bad Request
+Date: Thu, 25 Jan 2018 13:02:46 GMT
+Server: Apache
+Content-Length: 49
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+{"status":"error","mess":"E-mail must be valid "}
+
+-------------------------
+Пользователь уже существует.
+Статус ответа: 400
+Ответ сервера: {"status":"error","mess":"
+							$res['message'] = "Пользователь с таким именем уже существует"}
+-------------------------
+curl -d "{\"username\" : \"udjal@mail.ru\", \"password\" : \"192837465\", \"accept\" : 1}" -i http://coachme:8080/api/auth/registry
+HTTP/1.1 400 Bad Request
+Date: Thu, 25 Jan 2018 13:07:13 GMT
+Server: Apache
+Content-Length: 258
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+{"status":"error","message":"\u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0441 \u0442\u0430\u043a\u0438\u043c \u0438\u043c\u0435\u043d\u0435\u043c \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442"}
+
+-------------------------
+Внутренняя ошибка сервера. По каким либо причинам данные не сохранились в базе
+Статус ответа: 500
+Ответ сервера: {"status":"error","mess":"
+							$res['message'] = "Не удалось создать профиль"}
+-------------------------
+*************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+*************************************************************************************
+--------------------------------------------------
+Метод создания профиля пользователя.
+!!! Профиль становится активным по умолчанию.
+контроллер: Profile
+метод: create
+адрес для обращения: api\profile\create
+отправляемые данные: {"apiKey" : "ключ пользователя", "name" : "Имя", "fam" : "Фамилия", "sex" : "пол (male/female)", "birthday" : "Дата рождения в формате ISO (1998-03-12)", "growth" : рост, "weight" : вес}
+Статус ответа: 200
+ответ сервера: {"status":"success", "mess":"Профиль успешно создан"}
+--------------------------------------------------
+curl -d "{\"apiKey\" : \"01ff3fbe8918c39be1901271956f0eb8fc1f35d4\", \"name\" : \"udjal\", \"fam\" : \"testfam\", \"sex\" : \"male\", \"birthday\" : \"1998-03-12\", \"growth\" : 50, \"weight\" : 100}" -i http://coachme:8080/api/profile/create
+HTTP/1.1 200 OK
+Date: Thu, 25 Jan 2018 13:36:20 GMT
+Server: Apache
+Content-Length: 153
+Content-Type: text/html; charset=UTF-8
+
+{"status":"success","mess":"3\u041f\u0440\u043e\u0444\u0438\u043b\u044c \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0441\u043e\u0437\u0434\u0430\u043d"}
+
+-------------------------
+Неверное количество параметров, неверные имена параметров, передан не json объект
+Статус ответа: 400
+Ответ сервера: {"status":"error","mess":"Неверные параметры запроса"}
+-------------------------
+curl -d "{\"name\" : \"udjal\", \"fam\" : \"testfam\", \"sex\" : \"male\", \"birthday\" : \"1998-03-12\", \"growth\" : 50, \"weight\" : 100}" -i http://coachme:8080/api/profile/create
+HTTP/1.1 400 Bad Request
+Date: Thu, 25 Jan 2018 13:46:49 GMT
+Server: Apache
+Content-Length: 175
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+{"status":"error","mess":"1\u041d\u0435\u0432\u0435\u0440\u043d\u044b\u0435 \u043f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b \u0437\u0430\u043f\u0440\u043e\u0441\u0430"}
+
+-------------------------
+Неверное значение apikey
+Статус ответа: 203
+Ответ сервера: {"status":"error","mess":"Нет доступа"}
+-------------------------
+curl -d "{\"apiKey\" : \"01ff3fbe8918c39be19012f35d4\", \"name\" : \"udjal\", \"fam\" : \"testfam\", \"sex\" : \"male\", \"birthday\" : \"1998-03-12\", \"growth\" : 50, \"weight\" : 100}" -i http://coachme:8080/api/profile/create
+HTTP/1.1 203 Non-Authoritative Information
+Date: Thu, 25 Jan 2018 13:45:29 GMT
+Server: Apache
+Content-Length: 90
+Content-Type: text/html; charset=UTF-8
+
+{"status":"error","mess":"2\u041d\u0435\u0442 \u0434\u043e\u0441\u0442\u0443\u043f\u0430"}
+
+-------------------------
+Внутренняя ошибка сервера. По каким либо причинам данные не сохранились в базе
+Статус ответа: 500
+Ответ сервера: {"status":"error","mess":"Не удалось создать профиль"}
+-------------------------
+*************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+*************************************************************************************
+--------------------------------------------------
+Метод просмотра данных профиля пользователя.
+!!!если профиль не создан, то при попытке просмотреть создаётся пустой профиль
+контроллер: Profile
+метод: view
+адрес для обращения: api\profile\view
+отправляемые данные: {"apiKey" : "ключ пользователя"}
+Статус ответа: 200
+ответ сервера: {"id":идентификатор, "fam":"Фамилия","name":"Имя","sex":пол(0/1),"birthday":"дата рождения", "age":возраст, "growth":рост, "weight":вес, "avatar":"имя картинки с аватаром","aimTrain":цель тренировки(1/2/3),"active":признак активности(0/1),"somatotype":телосложение(1/2/3),"userId":идентификатор пользователя}
+
+curl -d "{\"apiKey\" : \"99508d99f35a144fabaafdddb17275c33bac5dbf\"}" -i http://coachme:8080/api/profile/view
+HTTP/1.1 200 OK
+Date: Sun, 28 Jan 2018 17:47:33 GMT
+Server: Apache
+Content-Length: 296
+Content-Type: text/html; charset=UTF-8
+
+{"id":51,"fam":"\u0423\u0436\u0430\u0440\u0438\u043d\u0441\u043a\u0438\u0439","name":"\u0410\u043d\u0442\u043e\u043d","sex":1,"birthday":"1989-08-05T00:00:00+00:00","age":"28","growth":185,"weight":54,"avatar":"15095476092787559f9de599dd74.png","aimTrain":1,"active":1,"somatotype":2,"userId":31}
+
+-------------------------
+
+Коды ошибок совпадают с предыдущим методом.
+*************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*************************************************************************************
+--------------------------------------------------
+Метод редактирования данных профиля пользователя.
+!!!если профиль не создан, то при попытке просмотреть создаётся пустой профиль
+контроллер: Profile
+метод: view
+адрес для обращения: api\profile\view
+отправляемые данные: {"apiKey" : "ключ пользователя", [изменяемые данные]}
+Статус ответа: 200
+ответ сервера: {status:"success",mess:"Профиль успешно обновлён"}
+
+curl -d "{\"apiKey\" : \"40a900d8922d57f800e4b131210db2f729440cd0\", \"fam\" : \"Udjal\"}" -i http://coachme:8080/api/profile/edit
+HTTP/1.1 200 OK
+Date: Sun, 28 Jan 2018 18:20:58 GMT
+Server: Apache
+Content-Length: 164
+Content-Type: text/html; charset=UTF-8
+
+{"status":"success","mess":"\u041f\u0440\u043e\u0444\u0438\u043b\u044c \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u043e\u0431\u043d\u043e\u0432\u043b\u0451\u043d"}
+
+-------------------------
+Не создан профиль который пытаемся изменить
+Статус ответа: 404
+Ответ сервера: {"status":"error","mess":Профиль не создан"}
+-------------------------
+
+
+
+
+
+
+
+
+*************************************************************************************
+--------------------------------------------------
+Метод получения всех распорядков пользователя
+контроллер: Routine
+метод: getAll
+адрес для обращения: api\routine\getAll
+отправляемые данные: {"apiKey" : "ключ пользователя"}
+Статус ответа: 200
+ответ сервера: [{
+    "id": идентификатор распорядка,
+    "name": "название распорядка дня",
+    "wakeupTime": "время подъёма (DateTime) не используется",
+    "trainTime": "время тренировки (DateTime) не используется",
+    "trainDuration": "продолжительность тренировки (DateTime) не используется",
+    "eatCount": "количество приёмов пищи (не используется всегда равен 0, можно не принимать)",
+    "sleepTime": "время сна (DateTime)",
+    "active": признак активности (true/false),
+    "userId": идентификатор пользователя,
+    "routineday": [ (список из двух дней - тренировочного и дня отдыха)
+      {
+        "id": идентификатор дня,
+        "type": тип дня (1 - тренировочный, 2 - день отдыха),
+        "wakeupTime": "2018-01-29T10:00:00+03:00 время подъёма (DateTime)",
+        "trainTime": "время тренировки (DateTime)",
+        "trainDuration": "продолжительность тренировки (DateTime)",
+        "eatCount": количество приёмов пищи,
+        "sleepTime": "время сна (DateTime)",
+        "routineId": идентификатор распорядка дня,
+        "eating": [ (массив приёмов пищи)
+          {
+            "id": идентификатор,
+            "time": "время приёма пищи (DateTime)",
+            "routineId": идентификатор распорядка дня,
+            "routinedayId": идентификатор дня
+          },
+        ]
+      },
+    ]
+  }]
+
+curl -d "{\"apiKey\" : \"99508d99f35a144fabaafdddb17275c33bac5dbf\"}" -i http://coachme:8080/api/routine/getAll
+HTTP/1.1 200 OK
+Date: Mon, 29 Jan 2018 11:01:57 GMT
+Server: Apache
+Content-Length: 6653
+Content-Type: text/html; charset=UTF-8
+
+[
+  {
+    "id": 32,
+    "name": "test",
+    "wakeupTime": "2018-01-29T00:00:00+03:00",
+    "trainTime": "2018-01-29T00:00:00+03:00",
+    "trainDuration": "2018-01-29T00:00:00+03:00",
+    "eatCount": 0,
+    "sleepTime": "2018-01-29T00:00:00+03:00",
+    "active": false,
+    "userId": 31,
+    "routineday": []
+  },
+  {
+    "id": 33,
+    "name": "test223",
+    "wakeupTime": "2018-01-29T00:00:00+03:00",
+    "trainTime": "2018-01-29T00:00:00+03:00",
+    "trainDuration": "2018-01-29T00:00:00+03:00",
+    "eatCount": 0,
+    "sleepTime": "2018-01-29T00:00:00+03:00",
+    "active": true,
+    "userId": 31,
+    "routineday": [
+      {
+        "id": 22,
+        "type": 1,
+        "wakeupTime": "2018-01-29T10:00:00+03:00",
+        "trainTime": "2018-01-29T19:30:00+03:00",
+        "trainDuration": "2018-01-29T01:30:00+03:00",
+        "eatCount": 3,
+        "sleepTime": "2018-01-29T23:00:00+03:00",
+        "routineId": 33,
+        "eating": [
+          {
+            "id": 227,
+            "time": "2018-01-29T10:30:00+03:00",
+            "routineId": 33,
+            "routinedayId": 22
+          },
+          {
+            "id": 228,
+            "time": "2018-01-29T17:00:00+03:00",
+            "routineId": 33,
+            "routinedayId": 22
+          },
+          {
+            "id": 229,
+            "time": "2018-01-29T22:00:00+03:00",
+            "routineId": 33,
+            "routinedayId": 22
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "type": 2,
+        "wakeupTime": "2018-01-29T10:00:00+03:00",
+        "trainTime": "2018-01-29T00:00:00+03:00",
+        "trainDuration": "2018-01-29T00:00:00+03:00",
+        "eatCount": 3,
+        "sleepTime": "2018-01-29T23:00:00+03:00",
+        "routineId": 33,
+        "eating": [
+          {
+            "id": 230,
+            "time": "2018-01-29T10:00:00+03:00",
+            "routineId": 33,
+            "routinedayId": 23
+          },
+          {
+            "id": 231,
+            "time": "2018-01-29T18:00:00+03:00",
+            "routineId": 33,
+            "routinedayId": 23
+          },
+          {
+            "id": 232,
+            "time": "2018-01-29T22:30:00+03:00",
+            "routineId": 33,
+            "routinedayId": 23
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "fghfghfgfsfghfdgsdghj",
+    "wakeupTime": "2018-01-29T00:00:00+03:00",
+    "trainTime": "2018-01-29T00:00:00+03:00",
+    "trainDuration": "2018-01-29T00:00:00+03:00",
+    "eatCount": 0,
+    "sleepTime": "2018-01-29T00:00:00+03:00",
+    "active": false,
+    "userId": 31,
+    "routineday": [
+      {
+        "id": 4,
+        "type": 1,
+        "wakeupTime": "2018-01-29T09:00:00+03:00",
+        "trainTime": "2018-01-29T17:00:00+03:00",
+        "trainDuration": "2018-01-29T01:00:00+03:00",
+        "eatCount": 3,
+        "sleepTime": "2018-01-29T23:00:00+03:00",
+        "routineId": 34,
+        "eating": [
+          {
+            "id": 195,
+            "time": "2018-01-29T10:00:00+03:00",
+            "routineId": 34,
+            "routinedayId": 4
+          },
+          {
+            "id": 196,
+            "time": "2018-01-29T15:00:00+03:00",
+            "routineId": 34,
+            "routinedayId": 4
+          },
+          {
+            "id": 197,
+            "time": "2018-01-29T18:00:00+03:00",
+            "routineId": 34,
+            "routinedayId": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "fghfghfgfsfghfdgsdghj",
+    "wakeupTime": "2018-01-29T00:00:00+03:00",
+    "trainTime": "2018-01-29T00:00:00+03:00",
+    "trainDuration": "2018-01-29T00:00:00+03:00",
+    "eatCount": 0,
+    "sleepTime": "2018-01-29T00:00:00+03:00",
+    "active": false,
+    "userId": 31,
+    "routineday": [
+      {
+        "id": 5,
+        "type": 1,
+        "wakeupTime": "2018-01-29T09:00:00+03:00",
+        "trainTime": "2018-01-29T17:00:00+03:00",
+        "trainDuration": "2018-01-29T01:00:00+03:00",
+        "eatCount": 3,
+        "sleepTime": "2018-01-29T23:00:00+03:00",
+        "routineId": 35,
+        "eating": [
+          {
+            "id": 198,
+            "time": "2018-01-29T10:00:00+03:00",
+            "routineId": 35,
+            "routinedayId": 5
+          },
+          {
+            "id": 199,
+            "time": "2018-01-29T15:00:00+03:00",
+            "routineId": 35,
+            "routinedayId": 5
+          },
+          {
+            "id": 200,
+            "time": "2018-01-29T18:00:00+03:00",
+            "routineId": 35,
+            "routinedayId": 5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "name": "test2",
+    "wakeupTime": "2018-01-29T00:00:00+03:00",
+    "trainTime": "2018-01-29T00:00:00+03:00",
+    "trainDuration": "2018-01-29T00:00:00+03:00",
+    "eatCount": 0,
+    "sleepTime": "2018-01-29T00:00:00+03:00",
+    "active": false,
+    "userId": 31,
+    "routineday": [
+      {
+        "id": 6,
+        "type": 1,
+        "wakeupTime": "2018-01-29T09:00:00+03:00",
+        "trainTime": "2018-01-29T16:00:00+03:00",
+        "trainDuration": "2018-01-29T01:30:00+03:00",
+        "eatCount": 3,
+        "sleepTime": "2018-01-29T22:00:00+03:00",
+        "routineId": 36,
+        "eating": [
+          {
+            "id": 201,
+            "time": "2018-01-29T10:00:00+03:00",
+            "routineId": 36,
+            "routinedayId": 6
+          },
+          {
+            "id": 202,
+            "time": "2018-01-29T17:00:00+03:00",
+            "routineId": 36,
+            "routinedayId": 6
+          },
+          {
+            "id": 203,
+            "time": "2018-01-29T21:00:00+03:00",
+            "routineId": 36,
+            "routinedayId": 6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "test2",
+    "wakeupTime": "2018-01-29T00:00:00+03:00",
+    "trainTime": "2018-01-29T00:00:00+03:00",
+    "trainDuration": "2018-01-29T00:00:00+03:00",
+    "eatCount": 0,
+    "sleepTime": "2018-01-29T00:00:00+03:00",
+    "active": false,
+    "userId": 31,
+    "routineday": [
+      {
+        "id": 7,
+        "type": 1,
+        "wakeupTime": "2018-01-29T09:00:00+03:00",
+        "trainTime": "2018-01-29T16:00:00+03:00",
+        "trainDuration": "2018-01-29T01:30:00+03:00",
+        "eatCount": 3,
+        "sleepTime": "2018-01-29T22:00:00+03:00",
+        "routineId": 37,
+        "eating": [
+          {
+            "id": 204,
+            "time": "2018-01-29T10:00:00+03:00",
+            "routineId": 37,
+            "routinedayId": 7
+          },
+          {
+            "id": 205,
+            "time": "2018-01-29T17:00:00+03:00",
+            "routineId": 37,
+            "routinedayId": 7
+          },
+          {
+            "id": 206,
+            "time": "2018-01-29T21:00:00+03:00",
+            "routineId": 37,
+            "routinedayId": 7
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "type": 2,
+        "wakeupTime": "2018-01-29T10:00:00+03:00",
+        "trainTime": "2018-01-29T00:00:00+03:00",
+        "trainDuration": "2018-01-29T00:00:00+03:00",
+        "eatCount": 3,
+        "sleepTime": "2018-01-29T22:00:00+03:00",
+        "routineId": 37,
+        "eating": [
+          {
+            "id": 207,
+            "time": "2018-01-29T10:30:00+03:00",
+            "routineId": 37,
+            "routinedayId": 8
+          },
+          {
+            "id": 208,
+            "time": "2018-01-29T15:00:00+03:00",
+            "routineId": 37,
+            "routinedayId": 8
+          },
+          {
+            "id": 209,
+            "time": "2018-01-29T21:00:00+03:00",
+            "routineId": 37,
+            "routinedayId": 8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "grvdsfhfdbfg",
+    "wakeupTime": "2018-01-29T00:00:00+03:00",
+    "trainTime": "2018-01-29T00:00:00+03:00",
+    "trainDuration": "2018-01-29T00:00:00+03:00",
+    "eatCount": 0,
+    "sleepTime": "2018-01-29T00:00:00+03:00",
+    "active": false,
+    "userId": 31,
+    "routineday": [
+      {
+        "id": 26,
+        "type": 1,
+        "wakeupTime": "2018-01-29T09:00:00+03:00",
+        "trainTime": "2018-01-29T13:00:00+03:00",
+        "trainDuration": "2018-01-29T01:00:00+03:00",
+        "eatCount": 2,
+        "sleepTime": "2018-01-29T23:00:00+03:00",
+        "routineId": 39,
+        "eating": [
+          {
+            "id": 239,
+            "time": "2018-01-29T14:00:00+03:00",
+            "routineId": 39,
+            "routinedayId": 26
+          },
+          {
+            "id": 240,
+            "time": "2018-01-29T17:00:00+03:00",
+            "routineId": 39,
+            "routinedayId": 26
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "type": 2,
+        "wakeupTime": "2018-01-29T10:00:00+03:00",
+        "trainTime": "2018-01-29T00:00:00+03:00",
+        "trainDuration": "2018-01-29T00:00:00+03:00",
+        "eatCount": 2,
+        "sleepTime": "2018-01-29T23:00:00+03:00",
+        "routineId": 39,
+        "eating": [
+          {
+            "id": 241,
+            "time": "2018-01-29T10:00:00+03:00",
+            "routineId": 39,
+            "routinedayId": 27
+          },
+          {
+            "id": 242,
+            "time": "2018-01-29T16:00:00+03:00",
+            "routineId": 39,
+            "routinedayId": 27
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "name": "hfiudsyuajgj",
+    "wakeupTime": "2018-01-29T00:00:00+03:00",
+    "trainTime": "2018-01-29T00:00:00+03:00",
+    "trainDuration": "2018-01-29T00:00:00+03:00",
+    "eatCount": 0,
+    "sleepTime": "2018-01-29T00:00:00+03:00",
+    "active": false,
+    "userId": 31,
+    "routineday": [
+      {
+        "id": 28,
+        "type": 1,
+        "wakeupTime": "2018-01-29T09:00:00+03:00",
+        "trainTime": "2018-01-29T14:00:00+03:00",
+        "trainDuration": "2018-01-29T01:00:00+03:00",
+        "eatCount": 2,
+        "sleepTime": "2018-01-29T23:00:00+03:00",
+        "routineId": 40,
+        "eating": [
+          {
+            "id": 243,
+            "time": "2018-01-29T13:00:00+03:00",
+            "routineId": 40,
+            "routinedayId": 28
+          },
+          {
+            "id": 244,
+            "time": "2018-01-29T16:00:00+03:00",
+            "routineId": 40,
+            "routinedayId": 28
+          }
+        ]
+      },
+      {
+        "id": 29,
+        "type": 2,
+        "wakeupTime": "2018-01-29T10:00:00+03:00",
+        "trainTime": "2018-01-29T00:00:00+03:00",
+        "trainDuration": "2018-01-29T00:00:00+03:00",
+        "eatCount": 1,
+        "sleepTime": "2018-01-29T23:00:00+03:00",
+        "routineId": 40,
+        "eating": [
+          {
+            "id": 245,
+            "time": "2018-01-29T15:00:00+03:00",
+            "routineId": 40,
+            "routinedayId": 29
+          }
+        ]
+      }
+    ]
+  }
+]
+
+-------------------------
+
+Коды ошибок совпадают с предыдущими методами.
+*************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*************************************************************************************
+--------------------------------------------------
+Метод получения всех распорядков пользователя
+контроллер: Routine
+метод: getActive
+адрес для обращения: api\routine\getActive
+отправляемые данные: {"apiKey" : "ключ пользователя"}
+Статус ответа: 200
+ответ сервера: [{Объект распорядка (структуру смотри выше)}]
+
+curl -d "{\"apiKey\" : \"99508d99f35a144fabaafdddb17275c33bac5dbf\"}" -i http://coachme:8080/api/routine/getActive
+HTTP/1.1 200 OK
+Date: Mon, 29 Jan 2018 11:30:51 GMT
+Server: Apache
+Content-Length: 1165
+Content-Type: text/html; charset=UTF-8
+
+{"id":33,"name":"test223","wakeupTime":"2018-01-29T00:00:00+03:00","trainTime":"2018-01-29T00:00:00+03:00","trainDuration":"2018-01-29T00:00:00+03:00","eatCount":0,"sleepTime":"2018-01-29T00:00:00+03:00","active":true,"userId":31,"routineday":[{"id":22,"type":1,"wakeupTime":"2018-01-29T10:00:00+03:00","trainTime":"2018-01-29T19:30:00+03:00","trainDuration":"2018-01-29T01:30:00+03:00","eatCount":3,"sleepTime":"2018-01-29T23:00:00+03:00","routineId":33,"eating":[{"id":227,"time":"2018-01-29T10:30:00+03:00","routineId":33,"routinedayId":22},{"id":228,"time":"2018-01-29T17:00:00+03:00","routineId":33,"routinedayId":22},{"id":229,"time":"2018-01-29T22:00:00+03:00","routineId":33,"routinedayId":22}]},{"id":23,"type":2,"wakeupTime":"2018-01-29T10:00:00+03:00","trainTime":"2018-01-29T00:00:00+03:00","trainDuration":"2018-01-29T00:00:00+03:00","eatCount":3,"sleepTime":"2018-01-29T23:00:00+03:00","routineId":33,"eating":[{"id":230,"time":"2018-01-29T10:00:00+03:00","routineId":33,"routinedayId":23},{"id":231,"time":"2018-01-29T18:00:00+03:00","routineId":33,"routinedayId":23},{"id":232,"time":"2018-01-29T22:30:00+03:00","routineId":33,"routinedayId":23}]}]}
+
+
+--------------------------------------------------
+Активный распорядок отсутствует у пользователя
+Статус ответа: 404
+Ответ сервера: {"status":"error","mess":"Активный распорядок не найден"}
+-------------------------
+
+-------------------------
+Коды ошибок совпадают с предыдущими методами.
+*************************************************************************************
+
+
+
+
+
+*************************************************************************************
+--------------------------------------------------
+Метод создания нового распорядка дня
+контроллер: Routine
+метод: create
+адрес для обращения: api\routine\create
+отправляемые данные: 
+{"apiKey" : "ключ пользователя", 
+"name" : "Имя создаваемого распорядка", 
+"routineday" : [ (массив из двух элементов - тренировочный день и день отдыха)
+	{"type" : тип дня (1/2), 
+	"wakeupTime" : "время подъёма в формате hh:mm (10:00)" , 
+	"trainTime" : "время тренировки", 
+	"trainDuration" : "продолжительность тренировки в формате hh:mm", 
+	"eatCount" : количество приёмов пищи, 
+	"sleepTime" : "время сна", 
+	"eating" : [ приёмы пищи
+		{"time" : "время приёма пищи"}
+	]}, 
+	{"type" : 2, 
+	"wakeupTime" : "время подъёма", 
+	"eatCount" : количество приёмов пищи, 
+	"sleepTime" : "время сна", 
+	"eating":[
+		{"time" : "время приёма пищи"}
+	]}
+]}
+Статус ответа: 200
+ответ сервера: {"status":"success","mess":"Распорядок дня сохранён успешно"}
+
+curl -d "{\"apiKey\" : \"99508d99f35a144fabaafdddb17275c33bac5dbf\", \"name\" : \"test from api\", \"routineday\" : [{\"type\" : 1, \"wakeupTime\" : \"10:00\" , \"trainTime\" : \"19:30\", \"trainDuration\" : \"01:30\", \"eatCount\" : 3, \"sleepTime\" : \"23:00\", \"eating\" : [{\"time\" : \"10:30\"}, {\"time\" : \"17:00\"}, {\"time\" : \"22:00\"}]}, {\"type\" : 2, \"wakeupTime\" : \"10:00\", \"eatCount\" : 3, \"sleepTime\" : \"23:00\", \"eating\":[{\"time\" : \"10:00\"},{\"time\" : \"18:00\"},{\"time\" : \"22:30\"}]}]}" -i http://coachme:8080/api/routine/create
+HTTP/1.1 200 OK
+Date: Mon, 29 Jan 2018 16:42:45 GMT
+Server: Apache
+Content-Length: 201
+Content-Type: text/html; charset=UTF-8
+
+{"status":"success","mess":"\u0420\u0430\u0441\u043f\u043e\u0440\u044f\u0434\u043e\u043a \u0434\u043d\u044f \u0441\u043e\u0445\u0440\u0430\u043d\u0451\u043d \u0443\u0441\u043f\u0435\u0448\u043d\u043e"}
+
+/***************************************************
+*ДОбавление нового дня в дневник тренировок.
+******************************************************/
+curl -d "{\"apiKey\" : \"99508d99f35a144fabaafdddb17275c33bac5dbf\", \"date\":\"2018-07-03\",\"trainingprogramday_id\":144}" -i http://coachme:8080/api/diary/adddiaryday
+
+Параметры:
+date - дата тренировки
+trainingprogramday_id - идентификатор дня тренировки.
+ВОзвращаемое значение: 
+{"status":"success","mess":"\u0414\u0435\u043d\u044c \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d \u043a \u0434\u043d\u0435\u0432\u043d\u0438\u043a\u0443.","id":7}
+id добавленного дня.
+
+/***********************************************************
+* Заполнение результатов тренировки на заданный день
+**********************************************************/
+curl -d "{\"apiKey\" : \"99508d99f35a144fabaafdddb17275c33bac5dbf\", \"id\":7, \"date\":\"2018-07-03\",\"mark\":4,\"dayexersices\":[{\"exercise_id\":1, \"trainingdayexercise_id\":150, \"sets\":[{\"weight\":60,\"approach\":1,\"repeat\":4},{\"weight\":60,\"approach\":2,\"repeat\":4},{\"weight\":60,\"approach\":3,\"repeat\":4},{\"weight\":60,\"approach\":4,\"repeat\":4},{\"weight\":60,\"approach\":5,\"repeat\":4}]},{\"exercise_id\":2,\"trainingdayexercise_id\":151, \"sets\":[{\"weight\":45,\"approach\":1,\"repeat\":4},{\"weight\":45,\"approach\":2,\"repeat\":4},{\"weight\":45,\"approach\":3,\"repeat\":4}]}]}" -i http://coachme:8080/api/diary/adddiarydayresults
+
+ОТвет сервера
+HTTP/1.1 200 OK
+Date: Wed, 27 Jun 2018 08:11:54 GMT
+Server: Apache
+Content-Length: 214
+Content-Type: text/html; charset=UTF-8
+
+{"status":"success","mess":"\u0414\u0430\u043d\u043d\u044b\u0435 \u0434\u043d\u0435\u0432\u043d\u0438\u043a\u0430 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u044b."}
+
+Передаваемые параметры:
+id - идентификатор дня тренировки
+date -  дата дня тренировки на который заполняются данные
+mark - оценка
+doneexercise - массив с упражнениями, которые выполнялись:
+    exercise_id - идентификатор упражнения
+    doneexerciseset - массив с подходами:
+        weight - вес
+        approach - номер подхода
+        repeat - количество повторений
+
+/***************************************************
+* Получение результатов тренировок за определённый диапозон дат
+*****************************************************/
+curl -d "{\"apiKey\" : \"99508d99f35a144fabaafdddb17275c33bac5dbf\", \"startdate\" : \"2018-06-01\", \"enddate\":\"2018-07-20\"}" -i http://coachme:8080/api/diary/getdiaryresults
+HTTP/1.1 200 OK
+Date: Fri, 29 Jun 2018 08:15:32 GMT
+Server: Apache
+Content-Length: 3205
+Content-Type: text/html; charset=UTF-8
+
+{"status":"success","mess":"Данные дневника успешно добавлены.","data":[{"id":1,"date":"2018-06-21T00:00:00+00:00","mark":4,"trainingprogramday_id":143,"users_id":31,"doneexercise":[{"id":1,"diary_id":1,"exercise_id":1,"doneexerciseset":[{"id":1,"weight":60,"approach":1,"repeat":4,"doneexercise_id":1},{"id":2,"weight":60,"approach":2,"repeat":4,"doneexercise_id":1},{"id":3,"weight":60,"approach":3,"repeat":4,"doneexercise_id":1},{"id":4,"weight":60,"approach":4,"repeat":4,"doneexercise_id":1},{"id":5,"weight":60,"approach":5,"repeat":4,"doneexercise_id":1}]},{"id":2,"diary_id":1,"exercise_id":2,"doneexerciseset":[{"id":6,"weight":45,"approach":1,"repeat":4,"doneexercise_id":2},{"id":7,"weight":45,"approach":2,"repeat":4,"doneexercise_id":2},{"id":8,"weight":45,"approach":3,"repeat":4,"doneexercise_id":2}]}]},{"id":2,"date":"2018-06-23T00:00:00+00:00","mark":5,"trainingprogramday_id":144,"users_id":31,"doneexercise":[{"id":3,"diary_id":2,"exercise_id":3,"doneexerciseset":[{"id":9,"weight":60,"approach":1,"repeat":3,"doneexercise_id":3},{"id":10,"weight":60,"approach":2,"repeat":3,"doneexercise_id":3},{"id":11,"weight":60,"approach":3,"repeat":3,"doneexercise_id":3}]}]},{"id":3,"date":"2018-06-25T00:00:00+00:00","mark":null,"trainingprogramday_id":143,"users_id":31,"doneexercise":[{"id":5,"diary_id":3,"exercise_id":1,"doneexerciseset":[{"id":13,"weight":60,"approach":1,"repeat":4,"doneexercise_id":5},{"id":14,"weight":60,"approach":2,"repeat":4,"doneexercise_id":5},{"id":15,"weight":60,"approach":3,"repeat":4,"doneexercise_id":5},{"id":16,"weight":60,"approach":4,"repeat":4,"doneexercise_id":5},{"id":17,"weight":60,"approach":5,"repeat":4,"doneexercise_id":5}]},{"id":6,"diary_id":3,"exercise_id":2,"doneexerciseset":[{"id":18,"weight":45,"approach":1,"repeat":4,"doneexercise_id":6},{"id":19,"weight":45,"approach":2,"repeat":4,"doneexercise_id":6},{"id":20,"weight":45,"approach":3,"repeat":4,"doneexercise_id":6}]}]},{"id":4,"date":"2018-06-27T00:00:00+00:00","mark":null,"trainingprogramday_id":144,"users_id":31,"doneexercise":[]},{"id":5,"date":"2018-06-29T00:00:00+00:00","mark":null,"trainingprogramday_id":143,"users_id":31,"doneexercise":[]},{"id":6,"date":"2018-07-01T00:00:00+00:00","mark":null,"trainingprogramday_id":143,"users_id":31,"doneexercise":[]},{"id":7,"date":"2018-07-03T00:00:00+00:00","mark":4,"trainingprogramday_id":144,"users_id":31,"doneexercise":[{"id":9,"diary_id":7,"exercise_id":1,"doneexerciseset":[{"id":29,"weight":60,"approach":1,"repeat":4,"doneexercise_id":9},{"id":30,"weight":60,"approach":2,"repeat":4,"doneexercise_id":9},{"id":31,"weight":60,"approach":3,"repeat":4,"doneexercise_id":9},{"id":32,"weight":60,"approach":4,"repeat":4,"doneexercise_id":9},{"id":33,"weight":60,"approach":5,"repeat":4,"doneexercise_id":9}]},{"id":10,"diary_id":7,"exercise_id":2,"doneexerciseset":[{"id":34,"weight":45,"approach":1,"repeat":4,"doneexercise_id":10},{"id":35,"weight":45,"approach":2,"repeat":4,"doneexercise_id":10},{"id":36,"weight":45,"approach":3,"repeat":4,"doneexercise_id":10}]}]}]}
+
+/*******************************************************
+* Добавление результатов тренировки на заданную дату.
+******************************************************/
+curl -d "{\"apiKey\" : \"99508d99f35a144fabaafdddb17275c33bac5dbf\", \"date\":\"2018-07-05\",\"trainingprogramday_id\":144,\"mark\":5,\"dayexersices\":[{\"exercise_id\":1, \"trainingdayexercise_id\":150, \"sets\":[{\"weight\":60,\"approach\":1,\"repeat\":4},{\"weight\":60,\"approach\":2,\"repeat\":4},{\"weight\":60,\"approach\":3,\"repeat\":4},{\"weight\":60,\"approach\":4,\"repeat\":4},{\"weight\":60,\"approach\":5,\"repeat\":4}]},{\"exercise_id\":2,\"trainingdayexercise_id\":151, \"sets\":[{\"weight\":45,\"approach\":1,\"repeat\":4},{\"weight\":45,\"approach\":2,\"repeat\":4},{\"weight\":45,\"approach\":3,\"repeat\":4}]}]}" -i http://coachme:8080/api/diary/adddiarydayresultsbydate
+
+
+
+
+
+
+curl -d "{\"apiKey\" : \"01ff3fbe8918c39be1901271956f0eb8fc1f35d4\", \"eatingprogram\" : 47}" -i http://coachme:8080/api/nutrition/active
+HTTP/1.1 200 OK
+Date: Mon, 08 Oct 2018 23:10:58 GMT
+Server: Apache
+Content-Length: 182
+Content-Type: text/html; charset=UTF-8
+
+{"status":"success","mess":"\u0410\u043a\u0442\u0438\u0432\u043d\u0430\u044f \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0430"}
+
+curl -d "{\"apiKey\" : \"99508d99f35a144fabaafdddb17275c33bac5dbf\", \"eatings\" : [{\"date\" : \"2018-10-10\", \"eating_id\" : 228, \"food_id\" : 2, \"eatingprogram_id\" : 49, \"day_number\" : 0, \"cnt\" : 100, \"time\" : \"10:00\"}, {\"date\" : \"2018-10-10\", \"eating_id\" : 229, \"food_id\" : 1, \"eatingprogram_id\" : 49, \"day_number\" : 0, \"cnt\" : 80, \"time\" : \"10:00\"}]}" -i http://coachme:8080/api/diary/addeating
+HTTP/1.1 200 OK
+Date: Wed, 10 Oct 2018 11:39:31 GMT
+Server: Apache
+Content-Length: 215
+Content-Type: text/html; charset=UTF-8
+
+{"status":"success","mess":"\u0414\u0430\u043d\u043d\u044b\u0435 \u043e \u043f\u0438\u0442\u0430\u043d\u0438\u0438 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u044b."}

@@ -1,0 +1,25 @@
+[Thu Apr 06 14:04:46 2017] [error] [client 127.0.0.1] PHP Fatal error:  You PHP version must be equal or higher than 5.5.9 to use CakePHP. in /home/udjal/PhpstormProjects/coachme/config/bootstrap.php on line 18
+[Thu Apr 06 14:06:22 2017] [error] [client 127.0.0.1] PHP Fatal error:  You PHP version must be equal or higher than 5.5.9 to use CakePHP. in /home/udjal/PhpstormProjects/coachme/config/bootstrap.php on line 18
+[Thu Apr 06 22:20:34 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Fri Apr 07 00:21:02 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Fri Apr 07 04:21:51 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Fri Apr 07 08:22:32 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Fri Apr 07 10:22:42 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Fri Apr 07 16:24:42 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Fri Apr 07 17:41:16 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Fri Apr 07 18:25:43 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Fri Apr 07 19:41:49 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Sat Apr 08 06:28:22 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Sat Apr 08 16:31:32 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Sat Apr 08 20:33:14 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Sun Apr 09 01:48:04 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Sun Apr 09 07:49:34 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Sun Apr 09 13:51:23 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Sun Apr 09 17:53:08 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Sun Apr 09 19:54:00 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Mon Apr 10 03:56:09 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Mon Apr 10 06:45:01 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Mon Apr 10 07:57:40 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Mon Apr 10 14:47:42 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat
+[Mon Apr 10 22:02:12 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/announce.php' not found or unable to stat
+[Mon Apr 10 22:51:02 2017] [error] [client 127.0.0.1] script '/home/udjal/PhpstormProjects/coachme/scrape.php' not found or unable to stat

@@ -1,0 +1,43 @@
+Вместо localhost:8000 использовать api.coach-me.ru
+
+Так как работа с пользователями еще не реализована, то передавать всегда user = 1
+
+Список профилей пользователя
+
+Метод: GET
+http://localhost:8000/ApiProfile/view
+{ "user": 1 }
+
+
+Создание нового профиля
+
+Метод: POST
+http://localhost:8000/ApiProfile/create
+{ "user": 1, "name": "Profile 3" }
+
+
+Редактирование данных профиля (пока без самототипа)
+
+Метод: PUT
+http://localhost:8000/ApiProfile/edit/id
+{ "name": "Profile 2", "sex": "male", "age": 18, "growth": 175, "weight": 55, "aimTrain": 2 }
+
+
+name - название профиля
+string
+
+sex - пол
+string = male | female
+
+age - возраст
+int
+
+growth - рост
+weight - вес
+float
+
+aimTrain - цель тренировки
+int
+0 - похудение
+1 - набор массы
+2 - поддержание массы
